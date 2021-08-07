@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+</head>
+<body th:fragment="messager">
+	<th:block th:if="${failcreatenew != null}">
+		<script th:inline="javascript">
+			Swal.fire('Create new Customter Fail!', 'Phone or Email is exist!', 'error')
+		</script>
+	</th:block>
+	<th:block th:if="${failRegisterCus != null}">
+		<script th:inline="javascript">
+			Swal.fire('Create Account Fail!', 'Phone or Email is exist!', 'error')
+		</script>
+	</th:block>
+	<th:block th:if="${registerSuccess != null}">
+		<script th:inline="javascript">
+			Swal.fire('Create Account Success!', 'Login here', 'success')
+		</script>
+	</th:block>
+<th:block th:if="${faileditcus != null}">
+		<script th:inline="javascript">
+			Swal.fire('Update Customter Fail!', 'Phone or Email is exist!', 'error')
+		</script>
+	</th:block>
+	<th:block th:if="${UpdateCusSuccess != null}">
+		<script th:inline="javascript">
+			Swal.fire('Update Customer Successfully!', '', 'success')
+		</script>
+	</th:block>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+ <nav xmlns:th="http://www.thymeleaf.org" class="navbar navbar-expand-lg sticky-top navbar-dark bg-drak px-0 w-100 fix menuBar headerA">
+             <div class="container-fluid">
+
+                <div class="collapse navbar-collapse d-flex" id="navbarNav">
+                    <span class="text-white ms-3">
+                        Noname restaurant
+                    </span>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                 <img th:if="${(Employee.empAvatar != '') && (Employee.empAvatar != null)}" class="avaMini"
+					th:src="'/images/avatarE/'+${Employee.employeeID}+'/'+${Employee.empAvatar}" />
+					<i  th:if="${(Employee.empAvatar == '') || (Employee.empAvatar == null)}" class="fas fa-user-circle fa-2x"></i>
+					<span th:text="${Employee.empName}"></span>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-end sm-dropdown-menu-top"
+					aria-labelledby="navbarDropdown">
+					<li><a class="dropdown-item" th:href="@{/viewProfile}">View
+							Profile</a></li> 
+					<li>
+						<hr class="dropdown-divider">
+					</li>
+					<li><a class="dropdown-item" th:href="@{/logout}"><i
+							class="fas fa-sign-out-alt"></i> Sign out</a></li>
+				</ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>

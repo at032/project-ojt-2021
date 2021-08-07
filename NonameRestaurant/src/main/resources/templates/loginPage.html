@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="/fontawesome-free-5.15.2-web/css/all.min.css" />
+    
+    <link rel="stylesheet" href="/css/khungCustomer.css">
+    <link rel="stylesheet" href="/css/Customer1.css">    
+<script type="text/javascript" src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="/js/main.js"></script> 
+<script type="text/javascript" src="/js/jquery-3.2.1.slim.min.js"></script>
+<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+ <script type="text/javascript" src="/js/jquery.validate.min.js"></script> 
+<script type="text/javascript" src="/js/loginValidation.js"></script> 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Login</title>
+</head>
+
+<body>
+<div th:insert="~{messager :: messager}"></div>
+    <div class="bodyC1 container-fluid">
+
+
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top  min-vw-100 ">
+            <div class="container-fluid">
+                <a th:href="@{/}">
+                    <div class="navbar-brand" style="line-height: 30px; width: 180px;padding: 0px;">
+                        <div class="resName headerLogin">NONAME</div>
+                        <img class="img-fluid" src="/images/Logo.png" alt="logo">
+                    </div>
+                </a>
+
+            </div>
+        </nav>
+
+        <div class="container bodyHomeC " style="min-height:80vh">
+            <div class="container-fluid body-login">
+                <div class="row bg1">
+                    <div class="col"></div>
+                    <div class="col-xs-10 col-md-9 col-lg-6 khung ">
+                        <div class="row">
+                            <div class="col"></div>
+                            <div class="col-10 ">
+                                <div class="title">Login</div>
+                                <div class="row">
+                                    <div class="col"></div>
+                                    <div class="col-10">
+                                        <form name='f' id="loginForm" th:action="@{/j_spring_security_check}" method='POST'>
+                                            <div class="form-group Log validate-input " data-validate="Valid email is required: xxx@abc.xyz">
+                                                <label for="" class="font-weight-bold">Email</label>
+                                                <input type="email" class="form-control" name="email" placeholder="Email...">
+                                               <!--  <span class="focus-input100"></span>
+                                                <span class="symbol-input100"> <i class="fa fa-envelope"
+                                                    aria-hidden="true"></i>
+                                                </span>  -->
+                                            </div>
+                                            <div class="form-group" >
+                                                <label for="" class="font-weight-bold">Password</label>
+                                                <input type="password" class="form-control" name="password" placeholder="Password...">
+
+                                            </div>
+
+                                         <!--   <div th:if="${#request.getParameter('error') == 'true'}" style="color:rgb(142, 80, 0);background-color: rgb(235, 166, 77); ">
+                                                  Login Failed!!!<br />
+                                                        Reason : 
+                                                <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}" th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
+                                                      Invalid username or password.
+                                                    </span>
+
+                                            </div> -->
+
+                                            <div class="form-group Log ">
+                                                <label for="" class="font-weight-bold" style="margin-top:5px !important;">Remember me?</label>
+                                                <input type="checkbox" name="remember-me" class="p-warning" style="line-height: 50px !important; background-color: rgb(235, 166, 77, 1) !important;  ">
+                                                <!-- <div th:if="${param.error}">
+                                                        <div class="alert alert-danger" style="color:rgb(142, 80, 0);background-color: rgb(235, 166, 77);">Invalid username or password.
+                                                        </div>
+                                                    </div> -->
+                                            </div>
+                                            <a th:href="@{/forgotPassword}" class="forgot">Forgot your password?</a> 
+                                            <div class="position-relative">
+                                                <!-- <div class="col"></div> -->
+                                                <div class="position-absolute top-100 start-50 translate-middle ">
+                                                    <div class="form-group ">
+                                                        <button class="btn btn-default btnLog" type="submit" name="submit" value="submit">Login</button>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="col"></div> -->
+                                            </div>
+                                        </form>
+										
+
+                                    </div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="creatt ">
+                                    Don't have an account?
+                                    <a th:href="@{/register}" class="register signup">Sign up</a>
+                                </div>
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- <div class="footerR">
+            <div class="col1">
+                <div class="resName">NONAME</div>
+                <p style="margin-top:0% ">Restaurant</p>
+                <p>Address: 100 Tran Bach Dang, Ngu Hanh Son, Da Nang City</p>
+            </div>
+
+            <div class="col2 ">
+                <p><a href="# ">Account</a></p>
+                <p><a href="# ">Restaurant's Rules</a></p>
+                <p><a href="# ">Terms of use</a></p>
+            </div>
+
+            <div class="col3 ">
+                <p>Hotline : 1900 1001</p>
+                <p>Email : NonameSupport@gmail.com</p>
+                <div class="social ">
+                    <p>Follow : <span>
+                        <a href="# " class="iconSocial "><i class=" fab fa-facebook "></i></a>
+                        <a href="# " class="iconSocial "><i class=" fab fa-twitter "></i></a>
+                        <a href="# " class="iconSocial "><i class=" fab fa-instagram "></i></a>
+                    </span>
+                    </p>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+</body>
+
+</html>

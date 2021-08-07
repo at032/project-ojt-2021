@@ -1,0 +1,120 @@
+.frame {
+    left: 0px;
+    top: 0px;
+    border-radius: 0px;
+    position: relative;
+    height: 100%;
+    background: #FFFFFF;
+    width: 100%;
+}
+
+.header {
+    height: 78px;
+    left: 0px;
+    top: 0px;
+    border-radius: 0px;
+    position: absolute;
+    background: #000000;
+    width: 100%;
+}
+
+.name {
+    height: 35px;
+    width: 258px;
+    left: 25px;
+    top: 30px;
+    position: absolute;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 15px;
+    color: #FFFFFF;
+}
+
+.info {
+    display: flex;
+    height: 23px;
+    width: 45px;
+    left: 1190px;
+    top: 30px;
+    position: absolute;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 0px;
+    color: #FFFFFF;
+}
+
+.customer-name {
+    padding: 10px;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.menu-list {
+    position: absolute;
+    display: flex;
+    height: 723px;
+    width: 237px;
+    left: 0px;
+    top: 78px;
+    background-color: #EEE8CD;
+    border-radius: 0px;
+    position: absolute;
+    border: 1px solid rgba(0, 0, 0, 1)
+}
+
+.fa-user-shield {
+    font-size: 45px;
+    padding-bottom: 50px;
+}
+
+.admin {
+    font-size: 25px;
+    padding-bottom: 50px;
+}
+
+.icon {
+    padding: 30px;
+    font-size: 30px;
+    height: 700px;
+    width: 95px;
+    left: 0px;
+    top: 78px;
+    padding-top: 10px;
+}
+
+.icon-role {
+    padding: 20px;
+    height: 700px;
+}
+
+.title {
+    position: absolute;
+    left: 50%;
+    top: 89px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 56px;
+    color: #000000;
+}
+
+.footer {
+    position: absolute;
+    width: 100%;
+    height: 78px;
+    left: 0px;
+    top: 800px;
+    border-radius: 0px;
+    background: #000000;
+    color: white;
+    text-align: center;
+}
+
+.fa-user-circle {
+    size: 3x;
+}

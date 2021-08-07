@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/fontawesome-free-5.15.2-web/css/all.min.css" />
+    <link rel="stylesheet" href="/css/khungAdmin.css" />
+    <title th:utext="${title}"> </title>
+</head>
+
+<body>
+    <!-- sidebar -->
+    <div class="container-fluid px-0">
+      <!--  <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-drak px-0 w-100 fix menuBar headerA">
+            <div class="container-fluid">
+
+                <div class="collapse navbar-collapse d-flex" id="navbarNav">
+                    <span class="text-white ms-3">
+                        Noname restaurant
+                    </span>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img class="avaMini" src="https://lh3.googleusercontent.com/proxy/wYbfVcAOJNAyiWnM5VNoGrzKSqOeO0BPW3EZAwDZNqIFBCEr1CO7LmYwJIQWxUM491VZxecXao1STYJD9ma2NaZVS5KhcWvDUgkvQ_YF2jmfHPkGf-2HtajAABrJIwxDDgVzRqzvf_zDd5nq2vQ7HxBp8VD9bkg3pzAy2lrNb-qZVJZetLUQ" alt="Your avatar">                                <span>Quang</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">View Profile</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i>
+                                        Sign out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav> --> 
+        <th:block th:include="/headerAd"></th:block>
+
+        <div class="row flex-nowrap ">
+            <div class=" col-auto col-xs-4 col-md-3 col-lg-3 col-xl-2 col-xxl-2 d-flex flex-column flex-shrink-0 px-0 text-dark menuBar">
+                <ul class="nav nav-pills flex-column sticky-top ">
+                    <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none mt-3 shadowTitle">
+                        <img class="hatChef ms-sm-2" src="/images/waiter.png" alt="Waiter icon">
+                        <span class="d-none d-sm-inline ms-5  ">Waiter</span>
+                    </a>
+                    <li class="nav-item sm-mt-3 mt-5 mb-4 ">
+                        <a href="#" class="nav-link  active">
+                            <i class="fas fa-clipboard-list  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1 me-2"></i><span class="d-none d-sm-inline ms-2">Booking list</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-3 mb-4">
+                        <a href="#" class="mt-7 nav-link text-dark">
+                            <img class="tableIcon  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1" src="/images/tableIcon.png" alt="Chef hat icon"><span class="d-none d-sm-inline ms-2">Table’s invoice</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-3 mb-4 ">
+                        <a href="#" class="nav-link text-dark" aria-current="page">
+                            <i class="fas fa-clock  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span class="d-none d-sm-inline ms-2">Booking by time</span>
+                        </a>
+                    </li>
+                    <hr class="vw-sm-100" style="width:80%; margin: 35px 10% 45px">
+                    <li class="nav-item  mb-4 ">
+                        <a href="#" class="nav-link text-dark">
+                            <i class="fas fa-user-circle ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span class="d-none d-sm-inline ms-2">View your profile</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mb-4 ">
+                        <a href="#" class="nav-link text-dark">
+                            <i class="fas fa-sign-out-alt ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span class="d-none d-sm-inline ms-2">Sign out</span>
+                        </a>
+                    </li>
+                    <!--    <li class="nav-item  mb-4 ">
+                        <a href="#" class="nav-link text-dark">
+                            <i class="fas fa-file-invoice-dollar  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span class="d-none d-sm-inline ms-2">Manage
+                                Payment</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  mb-4  ">
+                        <a href="#" class="nav-link text-dark">
+                            <i class="fas fa-clipboard  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span class="d-none d-sm-inline ms-2">Manage
+                                Menu</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  mb-4 ">
+                        <a href="#" class="nav-link text-dark">
+                            <i class="fas fa-chart-line  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span class="d-none d-sm-inline ms-2">Manage
+                                Statistical</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mb-4 ">
+                        <a href="#" class="nav-link text-dark">
+                            <i class="fa fa-comment-dots  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span class="d-none d-sm-inline ms-2">Manage
+                                Review</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item mb-4 ">
+                        <a href="#" class="nav-link text-dark">
+                            <i class="fas fa-money-check-alt  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span class="d-none d-sm-inline ms-2">Manage
+                                Offer</span>
+                        </a>
+                    </li> -->
+                </ul>
+            </div>
+            <div class="col ms-5">
+                <div class="col-11 subBody ">
+
+                    <div class="titleA">Booking list
+                        <hr>
+                    </div>
+
+                    <div class="row contentA">
+                        <!-- + khi đặt class thì ko bỏ dấu "-" vì dễ thay đổi class trùng trong bootstrap ảnh hưởng đến css những đoạn khác
+                        + tất cả class đặt cho admin thì có chữ A ở cuối, vd: statiticA, với nhân viên thì tương tự như Cashier là C vd: statiticC...
+                     + đặt tên class đặt rõ ràng viết liền in hoa từ chữ cái thứ 2, vd: viewEmployeeListA, viewEmptyTableA...
+                    + những cái cái nào giữa các web giống nhau có thể dùng chung thì dùng, vd: title là tiêu đề trang nào cũng kích thước và kiểu giống nhau
+                -->làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây
+                        nha - làm vào đây nha -- làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm
+                        vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha
+                        - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây
+                        nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào
+                        đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm
+                        vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây làm vào đây nha - làm vào đây nha - làm vào đây nha - làm
+                        vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào sđây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha -- làm vào đây nha - làm vào đây nha
+                        - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây
+                        nha - - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm
+                        vào đây nha - - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha
+                        - làm vào đây nha - - làm vào đây nha - làm vào đây nha - làm vào đây nha - làm vào đây nha -
+
+
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="footerA containter-fluid px-0">
+        <div class="ft"> Copyright <i class="far fa-copyright"></i> 2021</div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,196 @@
+ /*new booking*/
+ 
+ .body-newBooking {
+     min-height: 70vh;
+     background-color: rgba(0, 0, 0, 0.55);
+     margin-top: 5vh;
+     border-radius: 10px;
+     padding: 20px;
+ }
+ 
+ .bodyRegis {
+     background-color: rgba(0, 0, 0, 0.55);
+     border-radius: 10px;
+     padding-top: 1.2vh;
+ }
+ 
+ #time {
+     margin-left: 16px;
+ }
+ 
+ .form-control {
+     background-color: rgba(255, 255, 255, 0.75);
+ }
+ 
+ button.btnW {
+     background-color: rgba(255, 255, 255, 1);
+     width: 145px;
+     float: right;
+     font-size: 20px;
+     margin-top: 5vh;
+     margin-right: 2vw;
+     text-shadow: 0 1px 2px #656565;
+     border-radius: 10px;
+     box-shadow: 0 2px 4px #363636;
+ }
+ 
+ button.btnGeturl {
+     background-color: rgba(255, 255, 255, 1);
+     width: 95px;
+     font-size: 17px;
+     text-shadow: 0 1px 2px #656565;
+     border-radius: 10px;
+     box-shadow: 0 2px 4px #363636;
+ }
+ 
+ button.btnW:first-child {
+     margin-right: 2vw;
+ }
+ 
+ .form-group {
+     margin-top: 3vh;
+ }
+ 
+ .viewETable {
+     float: right;
+     font-size: 15px;
+     line-height: 20px;
+ }
+ 
+ .viewETable:hover {
+     color: #fff;
+     text-decoration: underline #CCCCCC;
+ }
+ /*view table */
+  
+ 
+ .background2 {
+     background-image: url(../image/background2.jpg);
+ }
+ 
+ .footer2 {
+     margin-top: 0;
+ }
+ 
+ .title2 {
+     color: #000;
+ }
+ 
+ hr {
+     position: absolute;
+     width: 1398px;
+     height: 0px;
+     left: 23px;
+     top: 218.5px;
+     border: 1px solid #CCCCCC;
+ }
+ /* Css Login */
+ 
+ .body-login {
+     min-height: 80vh;
+     margin-top: 10vh;
+ }
+ 
+ .khung {
+     position: relative;
+     top: -5vh;
+     background-color: rgba(0, 0, 0, 0.55);
+     border-radius: 10px;
+ }
+ 
+ label {
+     color: white;
+     font-family: rasa;
+     font-size: 20px;
+ }
+ /* .bg1 {
+     margin-top: 3vh;
+ } */
+ 
+ .title {
+     color: white;
+     font-family: Gabriola;
+     font-size: 55px;
+     text-align: center;
+     margin-top: 5vh;
+     margin-bottom: 0px;
+ }
+ 
+ .form-group {
+     margin-top: 20px;
+ }
+ 
+ button.btnLog {
+     background-color: rgba(255, 255, 255, 1);
+     width: 145px;
+     float: right;
+     font-size: 20px;
+     text-shadow: 0 1px 2px #656565;
+     border-radius: 10px;
+     margin-top: 15vh;
+     box-shadow: 0 2px 4px #363636;
+ }
+ 
+ button.btnLog:hover {
+     background-color: #000;
+     color: #fff;
+     box-shadow: 0 0 4px #e7c657;
+ }
+ 
+ .creatt {
+     text-align: center;
+     margin-top: 23vh;
+ }
+ 
+ .creatt a:hover {
+     color: rgb(251, 196, 94);
+ }
+ 
+ .creatt a {
+     padding: 0;
+     text-decoration: underline;
+ }
+ 
+ .forgot {
+     text-decoration: underline;
+ }
+ 
+ .forgot:hover {
+     color: rgb(251, 196, 94);
+ }
+ 
+ .headerLogin {
+     color: #000;
+ }
+ .custom-file-input::-webkit-file-upload-button{
+ 	visibility: hidden;
+ }
+  
+ .custom-file-input::before{
+ content: "Choose file";
+ outline:none;
+ white-space: nowrap;
+ -webkit-user-select:none;
+ cursor: pointer;
+ 
+ }
+ 
+ .custom-file-input::-webkit-appearance{
+visibility: none;
+ }  
+ 
+
+ .error{ 
+ 	color: rgb(255,100 ,0);
+ }
+
+ 
+ #nenbienmat{
+  background-color: rgb(235, 166, 77, 1);  
+ 	color: #804000;
+ 	width:100% ;
+ 	border: 1px solid rgba(0, 0, 0, 0.25);
+ 	border-radius:5px;
+ 	margin-top:1vh;
+ }
+ 

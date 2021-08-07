@@ -1,0 +1,61 @@
+<div class=" col-auto col-md-3 col-xl-2 d-flex flex-column flex-shrink-0 px-0 text-dark menuBar">
+    <ul class="nav nav-pills flex-column sticky-top ">
+        <!-- <div class="mt-1"></div> -->
+        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none mt-5 ">
+            <i class="d-none d-sm-inline fas fa-user-cog fa-2x ms-5"></i>
+            <span class="d-none d-sm-inline ms-5">Admin</span>
+        </a>
+        <li class="nav-item sm-mt-3 mt-5 mb-4">
+            <a role="presentation" th:class="${classActiveSettings}" th:href="@{/manageEmployee}" class="nav-link" aria-current="page">
+                <i class="fa fa-user-tag ms-3"></i></i><span class="d-none d-sm-inline ms-1">Manage
+                    Employees</span>
+            </a>
+        </li>
+        <li class="nav-item  mb-4 ">
+            <a role="presentation" th:class="${classActiveSettings}" th:href="@{/manageCustomerAd}" class="nav-link text-dark">
+                <i class="fa fa-user ms-3"></i><span class="d-none d-sm-inline ms-2">Manage Customers</span>
+            </a>
+        </li>
+        <li class="nav-item  mb-4 ">
+            <a role="presentation" th:class="${classActiveSettings}" th:href="@{/manageStockAd}" class="nav-link text-dark">
+                <i class="fas fa-cubes ms-3"></i><span class="d-none d-sm-inline ms-2">Manage Stock</span>
+            </a>
+        </li>
+        <li class="nav-item mb-4 ">
+            <a role="presentation" th:class="${classActiveSettings}" th:href="@{/manageBookingAd}" class="nav-link text-dark">
+                <i class="far fa-bookmark ms-3"></i><span class="d-none d-sm-inline ms-2">Manage
+                    Booking</span>
+            </a>
+        </li>
+        <li class="nav-item  mb-4 ">
+            <a role="presentation" th:class="${classActiveSettings}" th:href="@{/managePaymentAd}" class="nav-link text-dark">
+                <i class="fas fa-file-invoice-dollar ms-3"></i><span class="d-none d-sm-inline ms-2">Manage
+                    Payment</span>
+            </a>
+        </li>
+        <li class="nav-item  mb-4  ">
+            <a role="presentation" th:class="${classActiveSettings}" th:href="@{/manageMenu}" class="nav-link text-dark">
+                <i class="fas fa-clipboard ms-3"></i><span class="d-none d-sm-inline ms-2">Manage
+                    Menu</span>
+            </a>
+        </li>
+        <li class="nav-item  mb-4 ">
+            <a role="presentation" th:class="${classActiveSettings}" th:href="@{/manageStatiticsAd}" class="nav-link text-dark">
+                <i class="fas fa-chart-line ms-3"></i><span class="d-none d-sm-inline ms-2">Manage
+                    Statitics</span>
+            </a>
+        </li>
+        <li class="nav-item mb-4 ">
+            <a role="presentation" th:class="${classActiveSettings}" th:href="@{/manageFeedback}" class="nav-link text-dark">
+                <i class="fa fa-comment-dots ms-3"></i><span class="d-none d-sm-inline ms-2">Manage
+                    Feedback</span>
+            </a>
+        </li>
+        <li class="nav-item mb-4 ">
+            <a role="presentation" th:class="${classActiveSettings}" th:href="@{/manageOffer}" class="nav-link text-dark">
+                <i class="fas fa-money-check-alt"></i><span class="d-none d-sm-inline ms-2">Manage
+                    Offer</span>
+            </a>
+        </li>
+    </ul>
+</div>

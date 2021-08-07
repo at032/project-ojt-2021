@@ -1,0 +1,246 @@
+body {
+    background-image: url(../images/background2.jpg);
+    font-family: Rasa;
+    font-size: 20px;
+    font-weight: 500;
+    background-repeat: round;
+}
+
+.bodyC2 {
+    color: #000;
+    padding: 0px;
+}
+.headerC a{
+	line-height:50px !important;
+}
+
+.headerC {
+    background-color: rgba(0, 0, 0, 1);
+}
+
+.headerC #navbarDropdown {
+    color: #fff;
+}
+
+.headerC a.dropdown-item {
+    color: #fff;
+    line-height: 30px;
+}
+
+.headerC a.dropdown-item:hover {
+    background-color: #000;
+    color: #DCB15F;
+}
+
+.headerC .dropdown-menu {
+    background-color: #000;
+    color: #fff;
+    margin-top: 0px;
+}
+
+.logo {
+    float: left;
+    width: 10%;
+    height: 5vh;
+    opacity: 0.9;
+}
+
+.bodyHomeC {
+    padding-top: 18vh;
+}
+
+.footerR .col3 {
+    word-wrap: break-word;
+}
+
+.funct-bar {
+    display: inline-flex;
+    float: right;
+    width: 80%;
+    height: 145px;
+    align-items: center;
+    font-weight: 900;
+}
+
+a {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    text-align: center;
+    line-height: 80px;
+    color: white;
+    text-decoration: none;
+}
+
+.page {
+    width: 11%;
+}
+
+.login {
+    padding-left: 50px;
+    float: right;
+}
+
+.after-login {
+    width: 15%;
+    float: right;
+    padding-left: 45px;
+}
+
+.register {
+    padding-right: 40px;
+}
+
+.booking {
+    width: 15%;
+}
+
+.titleC {
+    color: white;
+    font-family: Gabriola;
+    font-size: 55px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.resName {
+    font-family: Gabriola;
+    font-size: 45px;
+    text-align: center;
+    margin-bottom: 0px;
+    line-height: 30px;
+    margin-top: 20px;
+}
+
+img {
+    height: 60px;
+    padding-inline: 25%;
+}
+
+.footerR {
+    width: 100;
+    height: auto;
+    background-color: black;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    margin-top: 5vh;
+}
+
+.col1 {
+    width: 40%;
+    padding: 0.3rem 1rem;
+    text-align: center;
+}
+
+.col2 {
+    width: 100%;
+    padding: 0.3rem 1rem;
+    margin: auto;
+    text-align: center;
+}
+
+.col3 {
+    width: 40%;
+    padding: 0.3rem 1rem;
+    text-align: left;
+    margin: auto;
+}
+
+.social {
+    line-height: 30px;
+}
+
+.social a {
+    line-height: 60px;
+}
+
+.fab {
+    width: 30px;
+    text-align: center;
+    margin: 0px 2px;
+    color: #fff;
+}
+
+.iconSocial {
+    margin-left: 15px;
+}
+
+.col2 a {
+    line-height: 36px;
+}
+
+p {
+    margin-top: 0.5rem;
+}
+
+.page:hover {
+    color: #DCB15F;
+    text-decoration: none;
+}
+
+.active {
+    color: #DCB15F !important;
+}
+
+.col2 a:hover {
+    color: #DCB15F;
+    text-decoration: none;
+}
+
+.fa-user-circle {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+#menuMini {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 1);
+    font-size: 70px;
+    border: 0px;
+    position: relative;
+    top: -20px;
+}
+
+#menuMini:focus {
+    border: none;
+    box-shadow: none;
+}
+
+#menuMini:hover {
+    color: #DCB15F;
+}
+
+#menuMini h5,
+#menuMini a,
+#menuMini div {
+    color: #fff;
+    line-height: 30px;
+}
+
+#menuMini a:hover,
+#menuMini div:hover {
+    color: #DCB15F;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#menuMini:nth-last-child(1) {
+    border: 1px #fff;
+}
+
+.after-login:hover {
+    color: #fff;
+}
+
+.avaMini {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    padding-inline:0!important; 
+    margin-right: 1vw;
+}
+
+a:hover {
+    text-shadow: 0 0 3px #e7c657 !important;
+}

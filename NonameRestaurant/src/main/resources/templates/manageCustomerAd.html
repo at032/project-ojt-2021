@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+	href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="/fontawesome-free-5.15.2-web/css/all.min.css" />
+<link rel="stylesheet" href="/css/khungAdmin.css" />
+<link rel="stylesheet" href="/css/KhungManageCustomer.css" />
+
+
+
+<link rel="stylesheet" type="text/css"
+	href="/DataTables/datatables.min.css" />
+<script type="text/javascript"
+	src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/DataTables/datatables.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+	$(document).ready(function() {
+		var table = $('#tableCustomer').DataTable();
+
+		$('#tableCustomer tbody').on('click', '.edit1', function(e) {
+
+			var data = table.row($(this).parents('tr')).data();
+			$('#editCusID').val(data[0]);
+			$('#editCusName').val(data[1]);
+			$('#editCusEmail').val(data[2]);
+			$('#editCusPassword').val(data[8]);
+			$('#editCusPhone').val(data[3]);
+			$('#editCusBirthday').val(data[5]);
+			$("input[name=gender][id=editCusGender][value=" + data[4] + "]").prop('checked', true);
+
+			//cái này để get lên cái bảng edit những thông tin ẩn cũng get luôn hỉ ủa bắt đầu từ 0 là cột 1 đó hỉu, trùng kìa
+
+			//làm theo thứ tự nè với lại cái name á
+		});
+		$.validator.addMethod("regex", function(value, element, regularExpression) {
+			var re = new RegExp(regularExpression)
+			return this.optional(element) || re.test(value);
+		});
+		
+		$("#addnewCus").validate({
+			// preventDefault();
+			rules: {
+				cusName:  {
+					required: true,
+				},
+				birthday: {
+					required: true,
+				},
+				'loginId.email': {
+					required: true,
+					email: true
+				},
+				'loginId.phone': {
+					required: true,
+					regex: /([0]+([0-9]{9})\b)/g,
+				},
+				gender: {
+					required: true
+				}
+
+			},
+			messages: {
+				cusName: {
+					required: "Can't be empty",
+				},
+				birthday: {
+					required: "Can't be empty",
+				},
+				'loginId.email': {
+					required: "Can't be empty",
+					email: "Invalid email"
+				},
+				'loginId.phone': {
+					required: "Can't be empty",
+					regex: "Invalid phone number"
+				},
+				gender: {
+					required: "Please choose your gender"
+				}
+
+			},
+			errorPlacement: function(error, element) {
+				if (element.is(":radio")) {
+					error.insertAfter(element.parents('.form-fill-gender'));
+
+				} else {
+					error.appendTo(element.parent("div"));
+				}
+			}
+		});
+		$("#editCusForm").validate({
+			// preventDefault();
+			rules: {
+				cusName:  {
+					required: true,
+				},
+				'loginId.encrytedPassword': {
+					required: true,
+				},
+				
+				birthday: {
+					required: true,
+				},
+				'loginId.email': {
+					required: true,
+					email: true
+				},
+				'loginId.phone': {
+					required: true,
+					regex: /([0]+([0-9]{9})\b)/g,
+					
+				},
+				gender: {
+					required: true
+				}
+
+			},
+			messages: {
+				cusName: {
+					required: "Can't be empty",
+				},
+				'loginId.encrytedPassword': {
+					required: "Can't be empty",
+				},
+				birthday: {
+					required: "Can't be empty",
+				},
+				'loginId.email': {
+					required: "Can't be empty",
+					email: "Invalid email"
+				},
+				'loginId.phone': {
+					required: "Can't be empty",
+					regex: "Invalid phone number"
+				},
+				gender: {
+					required: "Please choose your gender"
+				}
+
+			},
+			errorPlacement: function(error, element) {
+				if (element.is(":radio")) {
+					error.insertAfter(element.parents('.form-fill-gender'));
+
+				} else {
+					error.appendTo(element.parent("div"));
+				}
+			}
+		});
+	});
+
+	
+	// $('#i_file').change(function(event) {
+	//     var tmppath = URL.createObjectURL(event.target.files[0]);
+	//     $("img").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+
+	//     $("#disp_tmp_path").html("Temporary Path(Copy it and try pasting it in browser address bar) --> <strong>[" + tmppath + "]</strong>");
+	// });
+</script>
+<title>Admin - Manage Customer</title>
+</head>
+
+<body>
+	<!-- sidebar -->
+	
+	<div class="container-fluid px-0">
+		<nav
+			class="navbar navbar-expand-lg sticky-top navbar-dark bg-drak px-0 w-100 fix menuBar headerA">
+			<div class="container-fluid">
+
+				<div class="collapse navbar-collapse d-flex" id="navbarNav">
+					<span class="text-white ms-3"> Noname restaurant </span>
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item dropdown "><a
+							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<img class="avaMini"
+								src="https://w7.pngwing.com/pngs/945/606/png-transparent-baby-boss-illustration-infant-youtube-animation-sticker-youtube-family-glasses-film-thumbnail.png "
+								alt="Avatar"> <span>Admin</span>
+						</a>
+							<ul class="dropdown-menu dropdown-menu-end"
+								aria-labelledby="navbarDropdown">
+								<li><a class="dropdown-item" href="#">View Profile</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#"><i
+										class="fas fa-sign-out-alt"></i> Sign out</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="row flex-nowrap ">
+			<div
+				class=" col-auto col-xs-4 col-md-3 col-lg-3 col-xl-2 col-xxl-2 d-flex flex-column flex-shrink-0 px-0 text-dark menuBar">
+				<ul class="nav nav-pills flex-column sticky-top ">
+					<a href="#"
+						class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none mt-3 shadowTitle">
+						<i
+						class="d-sm-inline fas fa-user-cog fa-2x ms-sm-2  ms-xxl-5 ms-xl-3 ms-lg-5 ms-xs-5 ms-sm-5  ms-md-3"></i>
+						<span
+						class="d-none d-sm-inline ms-5  ms-xxl-5 ms-xl-3 ms-lg-5 ms-xs-5 ms-sm-5  ms-md-3">Admin</span>
+					</a>
+					<li class="nav-item sm-mt-3 mt-5 mb-4"><a href="#"
+						class="nav-link text-dark" aria-current="page"> <i
+							class="fa fa-user-tag ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span
+							class="d-none d-sm-inline ms-1">Manage Employees</span>
+					</a></li>
+					<li class="nav-item  mb-4 "><a href="#"
+						class="nav-link active"> <i
+							class="fa fa-user  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span
+							class="d-none d-sm-inline ms-2">Manage Customers</span>
+					</a></li>
+					<li class="nav-item  mb-4 "><a href="#"
+						class="nav-link text-dark"> <i
+							class="fas fa-cubes  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span
+							class="d-none d-sm-inline ms-2">Manage Stock</span>
+					</a></li>
+					<li class="nav-item mb-4 "><a href="#"
+						class="nav-link text-dark"> <i
+							class="far fa-bookmark  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span
+							class="d-none d-sm-inline ms-2">Manage Booking</span>
+					</a></li>
+					<li class="nav-item  mb-4 "><a href="#"
+						class="nav-link text-dark"> <i
+							class="fas fa-file-invoice-dollar  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span
+							class="d-none d-sm-inline ms-2">Manage Payment</span>
+					</a></li>
+					<li class="nav-item  mb-4  "><a href="#"
+						class="nav-link text-dark"> <i
+							class="fas fa-clipboard  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span
+							class="d-none d-sm-inline ms-2">Manage Menu</span>
+					</a></li>
+					<li class="nav-item  mb-4 "><a href="#"
+						class="nav-link text-dark"> <i
+							class="fas fa-chart-bar  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span
+							class="d-none d-sm-inline ms-2">Manage Statitics</span>
+					</a></li>
+					<li class="nav-item mb-4 "><a href="#"
+						class="nav-link text-dark"> <i
+							class="fa fa-comment-dots  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span
+							class="d-none d-sm-inline ms-2">Manage Feedback</span>
+					</a></li>
+
+					<li class="nav-item mb-4 "><a href="#"
+						class="nav-link text-dark"> <i
+							class="fas fa-money-check-alt  ms-xxl-3 ms-xl-1 ms-lg-3 ms-xs-3 ms-sm-3 ms-3 ms-md-1"></i><span
+							class="d-none d-sm-inline ms-2">Manage Offer</span>
+					</a></li>
+				</ul>
+			</div>
+			<div class="col ms-5">
+				<div class="col-11 subBody ">
+
+					<div class="titleA">
+						Customer list
+						<hr>
+					</div>
+
+					<div class="row contentA">
+						<!-- + khi đặt class thì ko bỏ dấu "-" vì dễ thay đổi class trùng trong bootstrap ảnh hưởng đến css những đoạn khác
+                        + tất cả class đặt cho admin thì có chữ A ở cuối, vd: statiticA, với nhân viên thì tương tự như Cashier là C vd: statiticC...
+                     + đặt tên class đặt rõ ràng viết liền in hoa từ chữ cái thứ 2, vd: viewEmployeeListA, viewEmptyTableA...
+                    + những cái cái nào giữa các web giống nhau có thể dùng chung thì dùng, vd: title là tiêu đề trang nào cũng kích thước và kiểu giống nhau
+                -->
+						<div class="col-12 contentA1">
+							<div class="col-5 contentA11">
+
+
+								<div class="contentA112 mt-3 ms-1">
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="flexRadioDefault2" value="" id="flexCheckChecked"
+											checked> <label class="form-check-label fw-bold"
+											for="flexCheckChecked"> All </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="flexRadioDefault2" value="" id="flexCheckChecked">
+										<label class="form-check-label fw-bold text-success"
+											for="flexCheckChecked"> Standard </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="flexRadioDefault2" value="" id="flexCheckChecked">
+										<label class="form-check-label fw-bold text-warning"
+											for="flexCheckChecked"> VIP </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="flexRadioDefault2" value="" id="flexCheckChecked">
+										<label class="form-check-label fw-bold text-danger"
+											for="flexCheckChecked"> VVIP </label>
+									</div>
+								</div>
+							</div>
+							<div class="col-2 contentA12"></div>
+
+							<div class="col-5 contentA13 ">
+								<div class="row">
+
+									<button type="button" class="btn btn-dark ms-auto col-5 mb-2"
+										data-bs-toggle="modal" data-bs-target="#exampleModal">
+										<i class="fas fa-plus"></i> Add new customer
+									</button>
+								</div>
+								<div class="modal fade" id="exampleModal" tabindex="-1"
+									aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Add
+													Customer</h5>
+												<button type="button" class="btn-close"
+													data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<form th:action="@{/addnewCus}" id="addnewCus"th:object="${customer}"
+													method="post">
+													<div class="form-fill row" th:object="${customer}">
+														<div class="form-fill-left col-6">
+															<div class="form-fill-name">
+																<div class="form-fill-title col-3">Name:</div>
+																<div class="col-9">
+																
+																	<input type="text" class="form-control" name="cusName"
+																		placeholder="Name">
+																</div>
+															</div>
+															<div class="form-fill-mail">
+																<div class="form-fill-title col-3">Email:</div>
+																<div class="col-9">
+																	<input type="email" class="form-control"
+																		name="loginId.email" placeholder="Mail">
+																</div>
+															</div>
+
+															<!-- <div class="form-fill-password">
+																<div class="form-fill-title col-3">Password:</div>
+																<div class="col-9">
+																	<input type="password" class="form-control"
+																		name="cusName" placeholder="Password">
+																</div>
+															</div> -->
+
+
+
+														</div>
+														<div class="form-fill-right col-6">
+															<div class="form-fill-phone">
+																<div class="form-fill-title col-3">Phone:</div>
+																<div class="col-9">
+																	<input type="text" class="form-control"
+																		name="loginId.phone" placeholder="Phone Number">
+																</div>
+															</div>
+															<div class="form-fill-gender mt-1">
+																<div>Gender:</div>
+																<div class="form-check ms-3">
+																	<input class="form-check-input" type="radio"
+																		name="gender" value="Male"> <label
+																		class="form-check-label" for="flexRadioDefault2">
+																		Male </label>
+																</div>
+																<div class="form-check">
+																	<input class="form-check-input" type="radio"
+																		name="gender" value="Female"> <label
+																		class="form-check-label" for="flexRadioDefault3">
+																		Female </label>
+																</div>
+																<div class="form-check">
+																	<input class="form-check-input" type="radio"
+																		name="gender" value="Other"> <label
+																		class="form-check-label" for="flexRadioDefault1">
+																		Other </label>
+																</div>
+															</div>
+															<div class="form-fill-address mt-3">
+																<div class="form-fill-title col-3">Birthday :</div>
+																<div class="col-9">
+																	<input type="date" class="form-control" name="birthday">
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button type="submit" class="btn btn-dark btn-save">
+															<i class="far fa-save"></i> Save
+														</button>
+														<button type="button" class="btn btn-dark"
+															data-bs-dismiss="modal">
+															<i class="fas fa-times"></i>Cancel
+														</button>
+													</div>
+												</form>
+
+
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+								<!--	<div class="contentA131">
+									<div>Search by :</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="flexRadioDefault3" id="flexCheckChecked" checked>
+										<label class="form-check-label" for="flexRadioDefault1">
+											Name </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="flexRadioDefault3" id="flexRadioDefault1"> <label
+											class="form-check-label" for="flexRadioDefault1">
+											Email </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="flexRadioDefault3" id="flexRadioDefault1"> <label
+											class="form-check-label" for="flexRadioDefault1">
+											Phone </label>
+									</div>
+								</div> -->
+								<div class="contentA132 input-group">
+									<input type="email"
+										class="form-control form-inline border-end-0"
+										id="exampleFormControlInput1" placeholder="Search">
+									<button type="button"
+										class="btn btn-solid form-inline border border-start-0">
+										<i class="fas fa-search"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+						<table id="tableCustomer" class="table table-bordered">
+							<thead>
+								<tr>
+									<th class="table-dark text-center" scope="col">ID</th>
+									 
+									
+								<!--	<th style="display: none;">role</th>
+									<th style="display: none;">enable</th> -->
+									<th class="table-dark text-center" scope="col">Name</th>
+									<th class="table-dark text-center" scope="col">Email
+										Address</th>
+									<th class="table-dark text-center" scope="col">Phone</th>
+									<th class="table-dark text-center" scope="col">Gender</th>
+									<th class="table-dark text-center" scope="col">Birthday</th>
+									<th class="table-dark text-center" scope="col">Points</th>
+									<th class="table-dark text-center" scope="col">Class</th>
+								
+									<th style="display: none;">password</th>
+									<th style="display: none;">banking</th>
+									<th style="display: none;">avatar</th>
+									<th class="table-dark text-center" scope="col">#</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="listCus : ${listCustomer}">
+									<td class="text-center align-middle"
+										th:text="${listCus.customerID}"></td>
+									<!-- 									<td style="display: none;" th:text="${listCus.loginId.userId}"></td>
+									
+									<td style="display: none;" th:text="${listCus.loginId.role}"></td>
+									<td style="display: none;" th:text="${listCus.loginId.enabled}"></td> -->
+									<td class="text-center align-middle"
+										th:text="${listCus.cusName}"></td>
+									<td class="text-center align-middle"
+										th:text="${listCus.loginId.email}"></td>
+									<td class="text-center align-middle"
+										th:text="${listCus.loginId.phone}"></td>
+									<td class="text-center align-middle"
+										th:text="${listCus.gender}"></td>
+									<td class="text-center align-middle"
+										th:text="${listCus.birthday}"></td>
+									<td class="text-center align-middle"
+										th:text="${listCus.points}"></td>
+									<td class="text-center align-middle"
+										th:text="${listCus.classCus}"></td>
+									<td style="display: none;"
+										th:text="${listCus.loginId.encrytedPassword}"></td>
+									<td style="display: none" th:text="${listCus.bankingAccount}"></td>
+									<td style="display: none" th:text="${listCus.avatar}"></td>
+									<td class="text-center align-middle">
+										<button type="button" class="btn btn-solid edit1"
+											data-bs-toggle="modal" data-bs-target="#editCustomerModal">
+											<i class="fa fa-pen-alt "></i>
+										</button>
+
+										<button type="button" class="btn btn-solid delete1"
+											data-bs-toggle="modal" data-bs-target="#deleteCustomerModal">
+											<i class="fa fa-trash-alt "></i>
+										</button>
+									</td>
+								</tr>
+
+
+
+
+							</tbody>
+						</table>
+						<div class="modal fade" id="editCustomerModal" tabindex="-1"
+							aria-labelledby="exampleModalLabel1" aria-hidden="true">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Edit
+											Customer</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form th:action="@{/editCus}" id="editCusForm"
+											th:object="${customer}" method="post">
+											<div class="form-fill row">
+												<div class="form-fill-left col-6">
+													<div class="form-fill-mail d-none">
+														<div class="form-fill-title col-3"></div>
+														<div class="col-9">
+															<input type="text" name="customerID" id="editCusID">
+														</div>
+													</div> 
+													<div class="form-fill-name">
+														<div class="form-fill-title col-3">Name:</div>
+														<div class="col-9">
+															<input type="text" name="cusName" class="form-control"
+																id="editCusName" placeholder="Name">
+														</div>
+													</div>
+													<div class="form-fill-mail">
+														<div class="form-fill-title col-3">Email:</div>
+														<div class="col-9">
+															<input type="email" name="loginId.email"
+																class="form-control" id="editCusEmail"
+																placeholder="Email">
+														</div>
+													</div>
+													<div class="form-fill-password">
+														<div class="form-fill-title col-3">Password:</div>
+														<div class="col-9">
+															<input type="password" name="loginId.encrytedPassword"
+																class="form-control" id="editCusPassword"
+																placeholder="Password">
+														</div>
+													</div>
+												</div>
+												<div class="form-fill-right col-6">
+
+													<div class="form-fill-phone">
+														<div class="form-fill-title col-3">Phone:</div>
+														<div class="col-9">
+															<input type="text" name="loginId.phone" class="form-control" id="editCusPhone"
+																placeholder="Phone number">
+														</div>
+													</div>
+													<div class="form-fill-gender mt-4">
+														<div>Gender:</div>
+														<div class="form-check ms-3">
+															<input class="form-check-input" type="radio"
+																name="gender" id="editCusGender" value="Male">
+															<label class="form-check-label" for="flexRadioDefault2">
+																Male </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																name="gender" id="editCusGender" value="Female">
+															<label class="form-check-label" for="flexRadioDefault1">
+																Female </label>
+														</div>
+														<div class="form-check">
+															<input name="gender" class="form-check-input"
+																type="radio" id="editCusGender" value="Other">
+															<label class="form-check-label" for="flexadio"
+																id="flexCheRadioDefault1"> Other </label>
+														</div>
+													</div>
+													<div class="form-fill-address mt-2">
+														<div class="form-fill-title col-3">Birthday :</div>
+														<div class="col-9">
+															<input type="date" name="birthday" class="form-control"
+																id="editCusBirthday" placeholder="Birthday">
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="submit" class="btn btn-dark btn-save">
+													<i class="far fa-save"></i> Save
+												</button>
+												<button type="button" class="btn btn-dark"
+													data-bs-dismiss="modal">
+													<i class="fas fa-times"></i>Cancel
+												</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="contentA3">
+                        <div class="col-4">
+                            <button type="button" class="btn btn-solid"> <i class="far fa-caret-square-left"></i> </button>
+                            <button type="button" class="btn btn-solid active">1</button>
+                            <button type="button" class="btn btn-solid">2</button>
+                            <button type="button" class="btn btn-solid">3</button>
+                            <button type="button" class="btn btn-solid">...</button>
+                            <button type="button" class="btn btn-solid"><i class="far fa-caret-square-right"></i> </button>
+                        </div>
+                        <div class="col-4"></div>
+                        <div class="col-4 btn-footer">
+
+                            
+                            <button type="button" class="btn btn-dark btn-save"><i class="far fa-save"></i>  Save</button> 
+                        </div>
+                    </div>-->
+				</div>
+
+
+
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="footerA containter-fluid px-0">
+		<div class="ft">
+			Copyright <i class="far fa-copyright"></i> 2021
+		</div>
+	</div>
+	<div th:insert="~{messager :: messager}"></div>
+</body>
+
+</html>
