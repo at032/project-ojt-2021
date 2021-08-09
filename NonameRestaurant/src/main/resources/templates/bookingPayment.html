@@ -20,78 +20,195 @@
         <!-- Include header.html -->
         <!-- <th:block th:include="/header"></th:block> -->
 
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top headerC min-vw-100">
-            <div class="container-fluid">
-                <div class="navbar-brand" style="height: 100px; width: 180px;">
-                    <div class="resName">NONAME</div>
-                    <img class="img-fluid" src="../images/Logo.png" alt="logo">
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav ms-auto me-auto mb-2 mb-md-0">
-                        <li class="nav-item ">
-                            <a class="nav-link " aria-current="page" th:href="@{/}">Home</a>
-                        </li>
-                        <li class="nav-item ms-xxl-5">
-                            <a class="nav-link " th:href="@{/about}">About</a>
-                        </li>
-                        <li class="nav-item ms-xxl-5">
+        <nav 
+			class="navbar navbar-expand-md navbar-dark headerC min-vw-100">
+			<div class="container-fluid">
+				<div class="navbar-brand" style="height: 100px; width: 180px;">
+					<div class="resName">NONAME</div>
+					<img class="img-fluid" src="/images/Logo.png" alt="logo">
+				</div>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+					aria-controls="navbarCollapse" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarCollapse">
+					<ul class="navbar-nav ms-auto me-auto mb-2 mb-md-0">
+						<li class="nav-item "><a class="nav-link "
+							aria-current="page" th:href="@{/}">Home</a></li>
+						<li class="nav-item ms-xxl-5"><a class="nav-link "
+							th:href="@{/about}">About</a></li>
+						<li class="nav-item ms-xxl-5"><a class="nav-link "
+							th:href="@{/menu}">Menu</a></li>
+						<li class="nav-item ms-xxl-5"><a class="nav-link active"
+							th:href="@{/newBookingCus}">Booking Table</a></li>
+						<li class="nav-item ms-xxl-5"><a class="nav-link "
+							th:href="@{/photos}">Photos</a></li>
+						<li class="nav-item ms-xxl-5"><a class="nav-link "
+							th:href="@{/contact}">Contact</a></li>
+						<li
+							th:if="${(#request.userPrincipal != null)  && (User.role != 'ROLE_USER')}"
+							class="nav-item ms-xxl-5"><a class="nav-link "
+							th:href="@{/manageEmployee}">Admin page</a></li>
+					</ul>
+					<div th:if="${#request.userPrincipal == null}"
+						class="d-flex ms-auto me-lg-3">
+						<ul class="navbar-nav ms-auto me-auto mb-lg-2 mb-md-0">
+							<li class="nav-item "><a class="nav-link"
+								th:href="@{/login}">Login</a></li>
+							<li class="nav-item ms-xxl-1 "><a
+								class="d-none d-lg-block nav-link">/</a></li>
+							<li class="nav-item ms-xxl-1 "><a class="nav-link"
+								th:href="@{/register}">Register</a></li>
+						</ul>
+					</div>
+					<div
+						th:if="${(#request.userPrincipal != null)  && (User.role == 'ROLE_USER')}"
+						class="d-flex ms-auto me-lg-3">
+						<a class="nav-link dropdown-toggle m-auto" id="navbarDropdown"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<img
+							th:if="${(Customer.avatar != '') && (Customer.avatar != null)}"
+							class="avaMini"
+							th:src="'/images/avatarC/'+${Customer.customerID}+'/'+${Customer.avatar}" />
+							<i
+							th:if="${(Customer.avatar == '') || (Customer.avatar == null)}"
+							class="fas fa-user-circle fa-2x"></i> <span
+							th:text="${Customer.cusName}"></span>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end sm-dropdown-menu-top"
+							aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" th:href="@{/viewProfile}">View
+									Profile</a></li>
+							<li><a class="dropdown-item"
+								th:href="@{/transactionHistory}">View Transaction History</a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li><a class="dropdown-item" th:href="@{/logout}"><i
+									class="fas fa-sign-out-alt"></i> Sign out</a></li>
+						</ul>
+					</div>
 
-                            <a class="nav-link " th:href="@{/menu}">Menu</a>
-                        </li>
-                        <li class="nav-item ms-xxl-5">
-                            <a class="nav-link active" th:href="@{/newBookingCus}">Booking Table</a>
-                        </li>
-                        <li class="nav-item ms-xxl-5">
-                            <a class="nav-link " th:href="@{/photos}">Photos</a>
-                        </li>
-                        <li class="nav-item ms-xxl-5">
-                            <a class="nav-link " th:href="@{/contact}">Contact</a>
-                        </li>
-                        <!-- <li class="nav-item ms-xxl-5 ">
-                            <a class="nav-link" th:href="@{/}">Review</a>
-                        </li> -->
-                    </ul>
-                    <div th:if="${#request.userPrincipal == null}" class="d-flex m-auto">
-                        <ul class="navbar-nav ms-auto me-auto mb-2 mb-md-0">
-                            <li class="nav-item ">
-                                <a class="nav-link" th:href="@{/login}">Login</a>
-                            </li>
-                            <li class="nav-item ms-xxl-1 ">
-                                <a class="nav-link">/</a>
-                            </li>
-                            <li class="nav-item ms-xxl-1 ">
-                                <a class="nav-link" th:href="@{/register}">Register</a>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <form th:if="${#request.userPrincipal != null}" class="d-flex m-auto">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user-circle fa-2x"></i>Rosie
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end sm-dropdown-menu-top" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" th:href="@{/viewProfile}">View Profile</a></li>
-                            <li><a class="dropdown-item" th:href="@{/transactionHistory}">View Transaction History</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sign
-                                            out</a></li>
-                        </ul>
-                    </form>
-                </div>
-            </div>
-        </nav>
+					<div
+						th:if="${(#request.userPrincipal != null)  && (User.role != 'ROLE_USER')}"
+						class="d-flex ms-auto">
+						<a class="nav-link dropdown-toggle m-auto" id="navbarDropdown"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<img
+							th:if="${(Employee.empAvatar != '') && (Employee.empAvatar != null)}"
+							class="avaMini"
+							th:src="'/images/avatarE/'+${Employee.employeeID}+'/'+${Employee.empAvatar}"
+							alt="ava" /> <i
+							th:if="${(Employee.empAvatar == '') || (Employee.empAvatar == null)}"
+							class="fas fa-user-circle fa-2x"></i> <span
+							th:text="${Employee.empName}"></span>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end sm-dropdown-menu-top"
+							aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" th:href="@{/viewProfile}">View
+									Profile</a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li><a class="dropdown-item" th:href="@{/logout}"><i
+									class="fas fa-sign-out-alt"></i> Sign out</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
 
         <div class="container bodyHomeC " style="min-height:80vh">
             <div class="row ">
-                <div class="col-xl-12 ">
-                    <h2>Message : <span th:utext="${message}"></span></h2>
+                
+                        <div class="col-1"></div>
+                        <div class="col-10 khungLogin">
+                            <div class="resName my-5">Booking</div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-6">
+                                    <div class="row my-3">
+                                        <div class="col-4">Customer Name: </div>
+                                        <div class="col-7">Rosie</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row my-3">
+                                        <div class="col-2">Date:</div>
+                                        <div class="col-4">00/00/0000</div>
+                                        <div class="col-2">Time:</div>
+                                        <div class="col-4">000-000</div>
+                                    </div>
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
 
-                </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-6">
+                                    <div class="row my-3">
+                                        <div class="col-2">Phone: </div>
+                                        <div class="col-7">0000-000-000</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row my-3">
+                                        <div class="col-6">Number of people:</div>
+                                        <div class="col-6">3</div>
+                                    </div>
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-6">
+                                    <div class="row my-3">
+                                        <div class="col-2">Address: </div>
+                                        <div class="col-7">00 xxxxxxxxxxxxxx, xxxxxx, xxx</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row my-3">
+                                        <div class="col-6">Table number:</div>
+                                        <div class="col-6">2</div>
+                                    </div>
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-6">
+                                    <div class="row my-5">
+                                        <div class="col-2">Deposit: </div>
+                                        <div class="col-7">300.000 VND</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row my-5">
+                                        <input type="text" class="form-control" name="Note" placeholder="Note">
+                                    </div>
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-8 row my-5">
+                                    <button type="button" class="btn btnW"><i class="fas fa-backward"></i> BACK</button>
+                                    <button type="button" class="btn btnW middle"><i class="fas fa-coins"></i> PAYMENT</button>
+                                    <button type="button" class="btn btnW"><i class="fas fa-times-circle"></i> CANCEL</button>
+                                </div>
+                                <div class="col-8"></div>
+                            </div>        
+                            
+                        </div>
+                        <div class="col-1"></div>
+                    
+                    
             </div>
 
 

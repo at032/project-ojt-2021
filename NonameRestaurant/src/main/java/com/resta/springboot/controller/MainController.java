@@ -7,7 +7,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,6 +31,7 @@ import com.resta.springboot.model.Customer;
 import com.resta.springboot.model.MyUserDetails;
 import com.resta.springboot.service.CustomerService;
 import com.resta.springboot.service.EmployeeService;
+import com.resta.springboot.service.InvoiceService;
 import com.resta.springboot.service.UserService;
 
 @Controller
@@ -41,25 +45,33 @@ public class MainController {
 
 	@Autowired
 	private EmployeeService employeeService;
+	
+	@Autowired
+	private InvoiceService invoiceService;
 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
-	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
-	public String welcomePage(Model model) {
-
+	public String getUsername() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
 		if (principal instanceof MyUserDetails) {
 			username = ((MyUserDetails) principal).getUsername();
+			return username;
 		} else {
 			username = principal.toString();
+			return username;
 		}
+	}
+
+	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
+	public String welcomePage(Model model) {
+ 
 		model.addAttribute("message", "This is welcome page!");
 		model.addAttribute("title", "Welcome");
-		model.addAttribute("Customer", customerService.findCusByEmail(username));
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		model.addAttribute("Customer", customerService.findCusByEmail(getUsername()));
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 		return "welcomePage";
 	}
 
@@ -106,15 +118,9 @@ public class MainController {
 //    }
 	@RequestMapping(value = "/ingredientListK", method = RequestMethod.GET)
 	public String ingredientListK(Model model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+ 
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 
 		model.addAttribute("title", "Chef - Manage Stock");
 		return "IngredientListK";
@@ -122,15 +128,9 @@ public class MainController {
 
 	@RequestMapping(value = "/bookingListW", method = RequestMethod.GET)
 	public String bookingListW(Model model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		 
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 
 		model.addAttribute("title", "Waiter - Manage Booking");
 		return "bookingListW";
@@ -138,15 +138,9 @@ public class MainController {
 
 	@RequestMapping(value = "/invoiceListC", method = RequestMethod.GET)
 	public String invoiceListC(Model model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		 
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 
 		model.addAttribute("title", "Cashier - Manage Payment");
 		return "invoiceListC";
@@ -154,15 +148,9 @@ public class MainController {
 
 	@RequestMapping(value = "/manageEmployee", method = RequestMethod.GET)
 	public String manageEmployee(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		 
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 		model.addAttribute("title", "Admin - Manage Employee");
 		return "manageEmployee";
 	}
@@ -170,22 +158,15 @@ public class MainController {
 	@RequestMapping(value = "/manageCustomerAd", method = RequestMethod.GET)
 	public String manageCustomerAd(Model model, Principal princi) {
 
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-
+	 
 		List<Customer> listCustomer = customerService.getAllCustomer();
 		List<AppUser> listUser = userService.getAllUser();
 
 		model.addAttribute("listCustomer", listCustomer);
 		model.addAttribute("listUser", listUser);
-		model.addAttribute("Customer", customerService.findCusByEmail(username));
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		model.addAttribute("Customer", customerService.findCusByEmail(getUsername()));
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 
 		model.addAttribute("title", "Admin - Manage Customer");
 		return "manageCustomerAd";
@@ -228,65 +209,71 @@ public class MainController {
 	public RedirectView editCus(@ModelAttribute("customter") Customer cus, RedirectAttributes ra) {
 		RedirectView rv = new RedirectView("/manageCustomerAd", true);
 
-			Customer customer = customerService.findById(cus.getCustomerID());
-			customer.setCusName(cus.getCusName());
-			customer.getLoginId().setEmail(cus.getLoginId().getEmail());
-			customer.getLoginId().setPhone(cus.getLoginId().getPhone());
-
-			if (userService.checkPasswordChange(customer.getLoginId().getUserId(),
-					encoder.encode(cus.getLoginId().getEncrytedPassword()))) {
-				customer.getLoginId().setEncrytedPassword(cus.getLoginId().getEncrytedPassword());
+		Customer customer = customerService.findById(cus.getCustomerID());
+		// xem thu email cu~ co giong email moi hay khong neu khac thi check email moi
+		// co trung voi cac email cu hay khong
+		if (!customer.getLoginId().getEmail().equals(cus.getLoginId().getEmail())
+				|| !customer.getLoginId().getPhone().equals(cus.getLoginId().getPhone())) {
+			if (!userService.checkEmailExist(cus.getLoginId().getEmail())
+					|| !userService.checkPhoneExist(cus.getLoginId().getPhone())) {
+				editCuss(customer, cus);
+				ra.addFlashAttribute("UpdateCusSuccess", "phoneExist");
+				return rv;
+			} else {
+				ra.addFlashAttribute("faileditcus", "phoneExist");
+				return rv;
 			}
-			customer.getLoginId().setEncrytedPassword(encoder.encode(cus.getLoginId().getEncrytedPassword()));
-			customer.setGender(cus.getGender());
-			customer.setBirthday(cus.getBirthday());
-			customerService.saveCustomer(customer);
+		} else {
+			editCuss(customer, cus);
 			ra.addFlashAttribute("UpdateCusSuccess", "phoneExist");
 			return rv;
-		
+		}
+	}
+
+	public void editCuss(Customer customer, Customer cus) {
+		customer.setCusName(cus.getCusName());
+		customer.getLoginId().setEmail(cus.getLoginId().getEmail());
+		customer.getLoginId().setPhone(cus.getLoginId().getPhone());
+
+		if (userService.checkPasswordChange(customer.getLoginId().getUserId(),
+				encoder.encode(cus.getLoginId().getEncrytedPassword()))) {
+			customer.getLoginId().setEncrytedPassword(cus.getLoginId().getEncrytedPassword());
+		}
+		customer.getLoginId().setEncrytedPassword(encoder.encode(cus.getLoginId().getEncrytedPassword()));
+		customer.setGender(cus.getGender());
+		customer.setBirthday(cus.getBirthday());
+		customerService.saveCustomer(customer);
+	}
+
+	@RequestMapping(value = "/deleteCus", method = RequestMethod.POST)
+	public RedirectView deleteCus(@RequestParam("loginId") int id, RedirectAttributes ra) {
+		RedirectView rv = new RedirectView("/manageCustomerAd", true);
+		try {
+			// customerService.deleteCustomer(id);
+			userService.deleteCustomer(id);
+			System.out.println(id);
+			// ra.addFlashAttribute("ok", "ok");
+		} catch (Exception e) {
+			ra.addFlashAttribute("faileditcus", e.getMessage());
+		}
+		return rv;
 
 	}
 
-//	@RequestMapping(value = "/deleteCus", method = RequestMethod.POST)
-//	public RedirectView deleteCus(@RequestParam int id, RedirectAttributes ra) {
-//		RedirectView rv = new RedirectView("/manageCustomerAd", true);
-//		try {
-//			customerService.deleteCustomer(id);
-//			ra.addFlashAttribute("ok", "ok");
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			ra.addFlashAttribute("faildelete", e.getMessage());
-//		}
-//		return rv;
-//
-//	}
-
 	@RequestMapping(value = "/manageStockAd", method = RequestMethod.GET)
 	public String manageStockAd(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		 
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 		model.addAttribute("title", "Admin - Manage Stock");
 		return "manageStockAd";
 	}
 
 	@RequestMapping(value = "/manageBookingAd", method = RequestMethod.GET)
 	public String manageBookingAd(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+	 
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 
 		model.addAttribute("title", "Admin - Manage Booking");
 		return "manageBookingAd";
@@ -294,47 +281,62 @@ public class MainController {
 
 	@RequestMapping(value = "/managePaymentAd", method = RequestMethod.GET)
 	public String managePaymentAd(Model model, Principal princi) {
-
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+ 
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 		model.addAttribute("title", "Admin - Manage Payment");
 		return "managePaymentAd";
 	}
 
 	@RequestMapping(value = "/manageMenu", method = RequestMethod.GET)
 	public String manageMenu(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+	 
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 		model.addAttribute("title", "Admin - Manage Menu");
 
 		return "manageMenuDish";
 	}
 
+	public List<String> listMonth(){
+		List<String> list = new ArrayList<String>();
+		list.add("January");
+		list.add("February");
+		list.add("March");
+		list.add("April");
+		list.add("May");
+		list.add("June");
+		list.add("July");
+		list.add("August");
+		list.add("September");
+		list.add("October");
+		list.add("November");
+		list.add("December");
+		return list;
+	}
 	@RequestMapping(value = "/manageStatiticsAd", method = RequestMethod.GET)
 	public String manageStatiticsAd(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+	 
+//		List<YearDTO> list=invoiceService.dataAll();
+		
+		
+		Map<String, Float> surveyMap=new LinkedHashMap<>();
+
+		surveyMap.put("January", invoiceService.totalMonth(2021, 1));
+		surveyMap.put("February", invoiceService.totalMonth(2021, 2));
+		surveyMap.put("March", invoiceService.totalMonth(2021, 3));
+		surveyMap.put("April", invoiceService.totalMonth(2021, 4));
+		surveyMap.put("May", invoiceService.totalMonth(2021, 5));
+		surveyMap.put("June", invoiceService.totalMonth(2021, 6));
+		surveyMap.put("July", invoiceService.totalMonth(2021, 7));
+		surveyMap.put("August", invoiceService.totalMonth(2021, 8));
+		surveyMap.put("September", invoiceService.totalMonth(2021, 9));
+		surveyMap.put("October", invoiceService.totalMonth(2021, 10));
+		surveyMap.put("November", invoiceService.totalMonth(2021, 11));
+		surveyMap.put("December", invoiceService.totalMonth(2021, 12));
+		model.addAttribute("surveyMap", surveyMap);
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 
 		model.addAttribute("title", "Admin - Manage Statitics");
 		return "manageStatiticsAd";
@@ -342,15 +344,9 @@ public class MainController {
 
 	@RequestMapping(value = "/manageFeedback", method = RequestMethod.GET)
 	public String manageFeedback(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+	 
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 
 		model.addAttribute("title", "Admin - Manage Feedback");
 		return "manageFeedback";
@@ -358,15 +354,9 @@ public class MainController {
 
 	@RequestMapping(value = "/manageOffer", method = RequestMethod.GET)
 	public String manageOffer(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+	 
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 
 		model.addAttribute("title", "Admin - Manage Offer");
 		return "manageOffer";
@@ -374,15 +364,9 @@ public class MainController {
 
 	@RequestMapping(value = "/viewProfileAd", method = RequestMethod.GET)
 	public String viewProfileAd(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+	 
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 
 		model.addAttribute("title", "Admin - View profile");
 		return "viewProfileAd";
@@ -390,18 +374,12 @@ public class MainController {
 
 	@RequestMapping(value = "/viewProfile", method = RequestMethod.GET)
 	public String viewProfile(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
+	 
 		model.addAttribute("message", "This is welcome page!");
 		model.addAttribute("title", "Welcome");
-		model.addAttribute("Customer", customerService.findCusByEmail(username));
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		model.addAttribute("Customer", customerService.findCusByEmail(getUsername()));
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 
 		model.addAttribute("title", "View profile");
 		return "viewProfileCus";
@@ -409,55 +387,34 @@ public class MainController {
 
 	@RequestMapping(value = "/transactionHistory", method = RequestMethod.GET)
 	public String transactionHistory(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		model.addAttribute("message", "This is welcome page!");
-		model.addAttribute("title", "Welcome");
-		model.addAttribute("Customer", customerService.findCusByEmail(username));
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		 
+		model.addAttribute("Customer", customerService.findCusByEmail(getUsername()));
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 		model.addAttribute("title", "View profile");
 		return "transactionHistory";
 	}
 
 	@RequestMapping(value = "/newBookingCus", method = RequestMethod.GET)
 	public String newBookingCus(Model model, Principal princi) {
-
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
+ 
 		model.addAttribute("message", "This is welcome page!");
 		model.addAttribute("title", "Welcome");
-		model.addAttribute("Customer", customerService.findCusByEmail(username));
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		model.addAttribute("Customer", customerService.findCusByEmail(getUsername()));
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 		model.addAttribute("title", "Booking Table");
 		return "newBookingCus";
 	}
 
 	@RequestMapping(value = "/viewEmptyTable", method = RequestMethod.GET)
 	public String viewEmptyTable(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
+	 
 		model.addAttribute("message", "This is welcome page!");
 		model.addAttribute("title", "Welcome");
-		model.addAttribute("Customer", customerService.findCusByEmail(username));
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		model.addAttribute("Customer", customerService.findCusByEmail(getUsername()));
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 
 		model.addAttribute("title", "View empty table");
 //        model.addAttribute("classActiveSettings","active");
@@ -466,18 +423,12 @@ public class MainController {
 
 	@RequestMapping(value = "/orderMenu", method = RequestMethod.GET)
 	public String orderMenu(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
+		 
 		model.addAttribute("message", "This is welcome page!");
 		model.addAttribute("title", "Welcome");
-		model.addAttribute("Customer", customerService.findCusByEmail(username));
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		model.addAttribute("Customer", customerService.findCusByEmail(getUsername()));
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 
 		model.addAttribute("title", "Booking Table");
 		return "orderMenu";
@@ -485,37 +436,24 @@ public class MainController {
 
 	@RequestMapping(value = "/bookingPayment", method = RequestMethod.GET)
 	public String bookingPayment(Model model, Principal princi) {
-
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
+ 
 		model.addAttribute("message", "This is welcome page!");
 		model.addAttribute("title", "Welcome");
-		model.addAttribute("Customer", customerService.findCusByEmail(username));
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		model.addAttribute("Customer", customerService.findCusByEmail(getUsername()));
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 		model.addAttribute("title", "Booking Payment");
 		return "bookingPayment";
 	}
 
 	@RequestMapping(value = "/invoicePayment", method = RequestMethod.GET)
 	public String invoicePayment(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
+		 
 		model.addAttribute("message", "This is welcome page!");
 		model.addAttribute("title", "Welcome");
-		model.addAttribute("Customer", customerService.findCusByEmail(username));
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		model.addAttribute("Customer", customerService.findCusByEmail(getUsername()));
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 		model.addAttribute("title", "Invoice Payment");
 		return "invoicePayment";
 	}
@@ -578,15 +516,9 @@ public class MainController {
 
 	@RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
 	public String forgotPassword(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		model.addAttribute("Customer", customerService.findCusByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		 
+		model.addAttribute("Customer", customerService.findCusByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 
 		return "forgotPassword";
 	}
@@ -594,18 +526,12 @@ public class MainController {
 	@RequestMapping(value = "/about", method = RequestMethod.GET)
 	public String aboutPage(Model model, Principal princi) {
 
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
+		 
 		model.addAttribute("message", "This is welcome page!");
 		model.addAttribute("title", "Welcome");
-		model.addAttribute("Customer", customerService.findCusByEmail(username));
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		model.addAttribute("Customer", customerService.findCusByEmail(getUsername()));
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 
 		model.addAttribute("title", "About");
 		return "aboutPage";
@@ -613,55 +539,36 @@ public class MainController {
 
 	@RequestMapping(value = "/menu", method = RequestMethod.GET)
 	public String menuPage(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
+		 
 		model.addAttribute("message", "This is welcome page!");
 		model.addAttribute("title", "Welcome");
-		model.addAttribute("Customer", customerService.findCusByEmail(username));
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		model.addAttribute("Customer", customerService.findCusByEmail(getUsername()));
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 		model.addAttribute("title", "Menu");
 		return "menuPage";
 	}
 
 	@RequestMapping(value = "/photos", method = RequestMethod.GET)
 	public String photos(Model model, Principal princi) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
+		 
 		model.addAttribute("message", "This is welcome page!");
 		model.addAttribute("title", "Welcome");
-		model.addAttribute("Customer", customerService.findCusByEmail(username));
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		model.addAttribute("Customer", customerService.findCusByEmail(getUsername()));
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 		model.addAttribute("title", "Photos");
 		return "photosPage";
 	}
 
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contactPage(Model model, Principal princi) {
-
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof MyUserDetails) {
-			username = ((MyUserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
+ 
 		model.addAttribute("message", "This is welcome page!");
 		model.addAttribute("title", "Welcome");
-		model.addAttribute("Customer", customerService.findCusByEmail(username));
-		model.addAttribute("Employee", employeeService.findEmpByEmail(username));
-		model.addAttribute("User", userService.findByEmail(username));
+		model.addAttribute("Customer", customerService.findCusByEmail(getUsername()));
+		model.addAttribute("Employee", employeeService.findEmpByEmail(getUsername()));
+		model.addAttribute("User", userService.findByEmail(getUsername()));
 		model.addAttribute("title", "Contact");
 		return "contactPage";
 	}

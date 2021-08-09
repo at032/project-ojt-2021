@@ -12,6 +12,14 @@ body {
     text-align: center;
 }
 
+i.fa-pen-alt{
+	color: #0000c4;
+}
+
+i.fa-trash-alt{
+	color: #db0000;
+}
+
 .ft {
     line-height: 50px;
 }
@@ -50,6 +58,9 @@ body {
 
 .menuBar li.nav-item:hover {
     background-color: rgba(255, 255, 255, 0.25) !important;
+}
+.menuBar li.nohover:hover {
+    background-color: #DCB15F !important;
 }
 
 .fa-user-cog {

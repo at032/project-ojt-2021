@@ -17,6 +17,10 @@ public class CustomerService {
 	public List<Customer> getAllCustomer() {
 		return cusRepo.findAll();
 	}
+	
+	public List<Customer> getCustomerByClass(String classCus) {
+		return cusRepo.findByClassCus(classCus);
+	}
 
 	public void saveCustomer(Customer customer) {
 		cusRepo.save(customer);
